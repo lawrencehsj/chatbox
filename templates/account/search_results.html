@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style type="text/css">
+	.profile-image{
+		max-height: 100px;
+		max-width: 100px;
+	}
+	.profile-image{
+		border-radius: 12px;
+	}
+	.card{
+		border-radius: 12px;
+	}
+	.friends-text{
+		color: #000;
+		font-weight: 500;
+	}
+	.friends-text-container{
+		border: 1px solid #cccccc;
+		border-radius: 12px;
+	}
+	.friends-btn:hover {
+		background-color: #bfbfbf;
+		border-color: #bfbfbf;
+	}
+	.dropdown-toggle::after { 
+		content: none; 
+	}
+	.profile-link{
+		color: #000;
+	}
+	.checkmark-icon{
+		color: green;
+	}
+	.cancel-icon{
+		color: red;
+	}
+</style>
+
+<div class="container">
+	<div class="list-group">
+
+		{% if accounts %}
+            {% for account in accounts %}
+        <!-- <div class="col-sm-2 m-0 p-2"> -->
+
+            <div class="list-group-item">
+                <a class="profile-link" href="{% url 'account:view' user_id=account.0.id %}">
+                    <h4 class="card-title">{{account.0.username}}</h4>
+                </a>
+                <div class="d-flex flex-row card-right flex-grow-1 justify-content-end mx-2">
+                    {% if account.1 %}
+                        <div class="d-flex flex-row friends-text-container p-3">
+                            <p class="friends-text m-auto">
+                                Friends 
+                            </p>
+                            <span class="material-icons checkmark-icon m-auto pl-2">
+                            check_circle_outline
+                            </span>
+                        </div>
+
+                    {% else %}
+                        {% if account.0 !=  request.user %}
+                            <div class="d-flex flex-row friends-text-container p-3">
+                                <p class="friends-text m-auto">
+                                    Not Friends 
+                                </p>
+                                <span class="material-icons cancel-icon m-auto pl-2">cancel</span>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if account.0 == request.user %}
+                        <div class="d-flex flex-row friends-text-container p-3">
+                            <p class="friends-text m-auto">
+                                This is you 
+                            </p>
+                            <span class="material-icons m-auto pl-2">
+                            person_pin
+                            </span>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+	</div>
+	
+</div>
+
+{% endblock content %}

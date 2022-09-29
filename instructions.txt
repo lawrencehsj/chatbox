@@ -1,0 +1,13 @@
+HOW TO SET UP THE APP:
+
+
+1. Install Django and set up a virtual environment
+2. Workon that virtual environment
+3. Run this command to install all requirements: pip install -r requirements.txt
+
+
+You will need 2 terminals to run the app. One to run redis-server for web sockets, another one for the actual web server. Run each of the following command in separate terminals in the root directory of the project:
+
+1. redis-server
+2. python manage.py rumserver 
+

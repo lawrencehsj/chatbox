@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style type="text/css">
+
+  .card-signin {
+	  width: 100%;
+	  max-width: 400px;
+	  padding: 15px;
+	  margin: auto;
+  }
+  
+  .form-signin input[type="email"] {
+    margin-bottom: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .form-signin input[type="text"] {
+    margin-bottom: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .form-signin input[type="password"] {
+    margin-bottom: -1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+</style>
+
+<section class="h-100">
+	<div class="container h-100">
+		<div class="row justify-content-sm-center h-100">
+			<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+				<div class="text-center my-5">
+					<img class="img-fluid mx-auto d-block" src="{% static 'images/chatbox.png' %}" alt="logo" width="100">
+				</div>
+				<div class="card shadow-lg">
+					<div class="card-body p-5">
+						<h1 class="fs-4 card-title fw-bold mb-4">Sign up</h1>
+						<form class="form-signin" method="post">{% csrf_token %} 
+
+							<div class="mb-3">
+								<label class="mb-2 text-muted" for="email">E-Mail Address</label>
+								<input type="email" name="email" id="inputEmail" class="form-control" required autofocus>
+							</div>
+
+							<div class="mb-3">
+								<div class="mb-2 w-100">
+									<label class="text-muted" for="username">Username</label>
+								</div>
+								<input type="text" name="username" id="inputUsername" class="form-control" required>
+							</div>
+
+							<div class="mb-3">
+								<div class="mb-2 w-100">
+									<label class="text-muted" for="password1">Password</label>
+								</div>
+								<input type="password" name="password1" id="inputPassword1" class="form-control" required>
+							</div>
+
+							<div class="mb-3">
+								<div class="mb-2 w-100">
+									<label class="text-muted" for="password2">Confirm Password</label>
+								</div>
+								<input type="password" name="password2" id="inputPassword2" class="form-control" required>
+							</div>
+
+							{% for field in registration_form %}
+							<p>
+							{% for error in field.errors %}
+							<p style="color: red">{{ error }}</p>
+							{% endfor %}
+							</p>
+							{% endfor %}
+							{% if registration_form.non_field_errors %}
+							<div style="color: red">
+								<p>{{registration_form.non_field_errors}}</p>
+							</div>
+							{% endif %}
+
+							<br>
+
+							<div class="d-flex align-items-center">
+								<button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+							</div>
+						</form>
+					</div>
+					<div class="card-footer py-3 border-0">
+						<div class="text-center">
+							Already have an account? <a href="{% url 'login' %}" class="float-end">Login.</a>
+						</div>
+					</div>
+				</div>
+				<div class="text-center mt-5 text-muted">
+					Copyright &copy; 2022 &mdash; Chatbox 
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock content %}

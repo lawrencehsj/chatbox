@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'groupchat/groupchat.html' with room_id=room_id %}
+{% endblock content %}

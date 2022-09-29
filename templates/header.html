@@ -1,0 +1,30 @@
+{% load static %}
+
+<nav class="navbar navbar-light bg-light">
+    <a class="p-2 text-dark" href="{% url 'home' %}">
+        <img class="img-fluid mx-auto " src="{% static 'images/chatbox.png' %}" alt="logo" width="50" height="50">
+    </a>
+    <div class="form-inline">
+        <form onsubmit="return runQuery();">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="query">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <div class="btn-group dropleft px-4">
+            <img class="account-image rounded-circle m-auto d-block dropdown-toggle" id="id_profile_links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="{{request.user.profile_image.url}}" width="40" height="40">
+            <div class="dropdown-menu" aria-labelledby="id_profile_links">
+                <a class="dropdown-item" href="{% url 'account:view' user_id=request.user.id %}">Account</a> 
+                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!--***** SEARCHING ACCOUNTS SCRIPT *****-->
+<script type="text/javascript">
+	function runQuery() {
+		// q is the kwargs
+		query = document.getElementById('query').value;
+	    window.location.replace("{% url 'search' %}?q=" + query)
+	    return false
+	}
+</script>
